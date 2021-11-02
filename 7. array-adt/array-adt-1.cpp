@@ -113,13 +113,45 @@ float Avg(struct Array *arr) {
     return avg;
 }
 
+void Reverse(struct Array *arr) {
+    int *B;
+    int i,j;
+
+    B = (int *)malloc(arr->length*sizeof(int));
+
+    for(i=arr->length-1, j=0; i>=0 ; i--,j++) {
+        B[j] = arr->A[i];
+    }
+
+    for(i=0;i<arr->length;i++) {
+        arr->A[i] = B[i];
+    }
+}
+
+void Reverse2(struct Array *arr) {
+    int i,j;
+    for(i=0, j=arr->length-1; i<j; i++,j--) {
+        int temp = arr->A[i];
+        arr->A[i] = arr->A[j];
+        arr->A[j] = temp;
+    }
+}
+
+void InsEleInSortedArr(struct Array *arr, int val) {
+    int i = arr->length-1;
+    while(arr->A[i] > val) {
+        arr->A[i+1] = arr->A[i];
+        i--;
+    }
+    arr->A[i] = val;
+}
+
 int main() {
     struct Array arr;
     printf("Enter size of an array ");
     scanf("%d", &arr.size);
 
     arr.A = (int *)malloc(arr.size * sizeof(int));
-    cout<<arr.A;
     arr.length = 0;
 
     printf("Enter n ");
@@ -144,5 +176,26 @@ int main() {
 
     cout<<"Max: "<<Max(&arr)<<endl;
     cout<<"Avg: "<<Avg(&arr)<<endl;
+    cout<<"Reverse an Array: ";
+    Reverse(&arr);
+
+    for(int i=0;i<arr.length;i++) {
+        cout<<arr.A[i]<<" ";
+    }
+
+    cout<<"\nReverse an Array2: ";
+    Reverse2(&arr);
+
+    for(int i=0;i<arr.length;i++) {
+        cout<<arr.A[i]<<" ";
+    }
+
+    //  This below code will work, only if array is sorted.
+    cout<<"INSERT AN ELEMENT";
+    InsEleInSortedArr(&arr, 10000);
+    for(int i=0;i<arr.length;i++) {
+        cout<<arr.A[i]<<" ";
+    }
+
     return 0;
 }
