@@ -1,3 +1,8 @@
+//     | x 0 0 0 0 |
+//     | 0 x 0 0 0 |
+//     | 0 0 x 0 0 |
+//     | 0 0 0 x 0 |
+//     | 0 0 0 0 x |
 #include <iostream>
 using namespace std;
 
