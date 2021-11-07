@@ -23,6 +23,33 @@ void create(int A[], int n) {
     }
 }
 
+struct Node * insertNodeBeg(struct Node *p, int x) {
+    if(p == NULL) {
+        return p;
+    }
+
+    struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
+    temp->data = x;
+    temp->next = p;
+    p = temp;
+    return p;
+}
+
+void insertNodeEnd(struct Node *p, int x) {
+    if(p == NULL) {
+        return;
+    }
+
+    while(p->next != NULL) {
+        p = p->next;
+    }
+
+    struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
+    temp->data = x;
+    temp->next = NULL;
+    p->next = temp;
+}
+
 void insertNodeBt(struct Node *p, int x, int pos) { // Function for inserting a node in between. pos is index. 
     if(p == NULL) {
         return;
@@ -54,6 +81,7 @@ void display(struct Node *p) {
         cout<<p->data<<" ";
         p = p->next;
     }
+    cout<<endl;
 }
 
 int nodeCount(struct Node *p) {
@@ -150,15 +178,23 @@ int main() {
 
     create(A, n);
     display(first);
-    cout<<endl<<nodeCount(first);
+    cout<<nodeCount(first);
     cout<<endl<<sumOfNodesData(first);
     cout<<endl<<maxEle(first);
     cout<<endl<<linearSearch(first, 6)<<endl;
     sort(first);
     display(first);
+
     insertNodeBt(first, 100, 2);
     cout<<endl;
     display(first);
+
+    first = insertNodeBeg(first, 50);
+    display(first);
+    
+    insertNodeEnd(first, 45);
+    display(first);
+
 
     return 0;
 }
