@@ -255,9 +255,41 @@ void remDupInSortedList(struct Node *ptr1) {
             ptr2 = ptr2->next;
         }
     }
-
 }
 
+struct Node* revList(struct Node *p) {
+    if(p == NULL) {
+        return p;
+    }
+    
+    struct Node *q = NULL, *r= NULL;
+    while(p != NULL) {
+        r = q;
+        q = p;
+        p = p->next;
+        q->next = r;
+    }
+    return q;
+}
+
+int isLoop(struct Node *p) {
+    if(p == NULL) {
+        return 0;
+    }
+    
+    struct Node *slow_ptr, *fast_ptr;
+    slow_ptr = fast_ptr = p;
+
+    while (slow_ptr && fast_ptr && fast_ptr->next) {
+        slow_ptr = slow_ptr->next;
+        fast_ptr = fast_ptr->next->next;
+        if (slow_ptr == fast_ptr) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
 
 int main() {
 
@@ -304,6 +336,11 @@ int main() {
 
     remDupInSortedList(first);
     display(first);
+
+    first = revList(first);
+    display(first);
+
+    cout<<"IS LOOP: "<<isLoop(first);
 
     return 0;
 }
