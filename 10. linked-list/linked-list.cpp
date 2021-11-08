@@ -75,6 +75,50 @@ void insertNodeBt(struct Node *p, int x, int pos) { // Function for inserting a 
     p->next = temp;
 }
 
+struct Node* deleteNodeBeg(struct Node *p) {
+    if(p == NULL) {
+        return p;
+    }
+
+    struct Node *temp = p;
+    p = p->next;
+    delete temp;
+    return p;
+}
+
+void deleteNodeEnd(struct Node *p) {
+    if(p == NULL) {
+        return;
+    }
+
+    while(p->next->next != NULL) {
+        p = p->next;
+    }
+    
+    delete p->next;
+    p->next = NULL;
+}
+
+void deleteNodeBt(struct Node *p, int pos) {
+    if(p == NULL) {
+        return;
+    }
+
+    int count = 0;
+    while(p != NULL) {
+        if(count < pos - 1) {
+            count++;
+            p = p->next;
+        } else {
+            break;
+        }
+    }
+
+    struct Node *temp = p->next;
+    p->next = temp->next;
+    delete temp;
+}
+
 
 void display(struct Node *p) {
     while(p != NULL) {
@@ -195,6 +239,14 @@ int main() {
     insertNodeEnd(first, 45);
     display(first);
 
+    first = deleteNodeBeg(first);
+    display(first);
+
+    deleteNodeEnd(first);
+    display(first);
+
+    deleteNodeBt(first, 2);
+    display(first);
 
     return 0;
 }
