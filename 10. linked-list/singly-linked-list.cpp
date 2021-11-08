@@ -50,14 +50,14 @@ void insertNodeEnd(struct Node *p, int x) {
     p->next = temp;
 }
 
-void insertNodeBt(struct Node *p, int x, int pos) { // Function for inserting a node in between. pos is index. 
+void insertNodeBt(struct Node *p, int x, int pos) { // Function for inserting a node in between. pos is index. Additional Note: if you give pos as 0. It will be on 1st pos.
     if(p == NULL) {
         return;
     }
 
     int count = 0;
     while(p != NULL) {
-        if(count < pos-1) {
+        if(count < pos-1 && pos > 0) {
             count++;
             p = p->next;
         } else {
@@ -307,8 +307,7 @@ int main() {
 
     cout<<sortedAscCheck(first)<<endl;
 
-    insertNodeBt(first, 100, 2);
-    cout<<endl;
+    insertNodeBt(first, 100, 0);
     display(first);
 
     cout<<sortedAscCheck(first)<<endl;
