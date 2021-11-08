@@ -215,6 +215,50 @@ void sort(struct Node *ptr1) {
 }
 
 
+bool sortedAscCheck(struct Node *p) {
+    if(p == NULL) {
+        return false;
+    }
+
+    bool flag = true;
+    int prev = p->data;
+    p = p->next;
+    while(p != NULL) {
+        if(prev > p->data) {
+            flag = false;
+            break;
+        }
+        prev = p->data;
+        p = p->next;
+    }
+
+    if(flag) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void remDupInSortedList(struct Node *ptr1) {
+    if(ptr1 == NULL || ptr1->next == NULL) {
+        return;
+    }
+
+    struct Node *ptr2 = ptr1->next;
+    while(ptr2 != NULL) {
+        if(ptr1->data == ptr2->data) {
+            ptr1->next = ptr2->next;
+            delete ptr2;
+            ptr2 = ptr1->next;
+        } else {
+            ptr1 = ptr1->next;
+            ptr2 = ptr2->next;
+        }
+    }
+
+}
+
+
 int main() {
 
     int A[] = {3, 1, 6, 5, 10};
@@ -229,9 +273,13 @@ int main() {
     sort(first);
     display(first);
 
+    cout<<sortedAscCheck(first)<<endl;
+
     insertNodeBt(first, 100, 2);
     cout<<endl;
     display(first);
+
+    cout<<sortedAscCheck(first)<<endl;
 
     first = insertNodeBeg(first, 50);
     display(first);
@@ -246,6 +294,15 @@ int main() {
     display(first);
 
     deleteNodeBt(first, 2);
+    display(first);
+
+    insertNodeBt(first, 1, 1);
+    display(first);
+
+    insertNodeBt(first, 10, 5);
+    display(first);
+
+    remDupInSortedList(first);
     display(first);
 
     return 0;
