@@ -1,3 +1,5 @@
+// In this file, I have just wrote a program for parathesis balanced only. But, it is easy to check curly braces and square bracket also. Just add appropriate opening and closing braces and brackets in correct condition.
+
 #include <iostream>
 using namespace std;
 
@@ -54,7 +56,7 @@ int main() {
                 isBalanced= false;
                 break;
             }
-            
+
             if(peek(top) == '(') {
                 top = pop(top);
             } else {
