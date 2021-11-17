@@ -98,9 +98,30 @@ void preorder(struct Node *p) {
     }
 }
 
-int main() {
+void inorder(struct Node *p) {
+    if(p) {
+        inorder(p->lchild);
+        cout<<p->data<<" ";
+        inorder(p->rchild);
+    }
+}
 
+void postorder(struct Node *p) {
+    if(p) {
+        postorder(p->lchild);
+        postorder(p->rchild);
+        cout<<p->data<<" ";
+    }
+}
+
+
+int main() {
     create();
     preorder(root);
+    cout<<endl;
+    inorder(root);
+    cout<<endl;
+    postorder(root);
+    cout<<endl;
     return 0;
 }
