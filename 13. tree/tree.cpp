@@ -41,7 +41,7 @@ struct Node* dequeue(struct Queue *q) {
     if(q->front == q->rear) {
         cout<<"Queue is Empty."<<endl;
     } else {
-        q->front++;
+        q->front = (q->front+1) % q->size;
         x = q->Q[q->front];
     }
     return x;
