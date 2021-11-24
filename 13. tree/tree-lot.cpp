@@ -50,7 +50,7 @@ struct TreeNode* dequeue(struct Queue *q) {
 
 void create() {
     struct Queue q;
-    createQueue(&q, 5);
+    createQueue(&q, 100);
     struct TreeNode *p, *t;
     int x;
     root = (struct TreeNode*)malloc(sizeof(struct TreeNode));
