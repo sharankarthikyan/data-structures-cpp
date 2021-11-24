@@ -53,6 +53,16 @@ void display(struct Queue *q) {
     }
 }
 
+int count(struct Node *root) {
+    int x, y;
+    if(root) {
+        x = count(root->lchild);
+        y = count(root->rchild);
+        return x + y + 1;
+    }
+    return 0;
+}
+
 void create() {
     struct Node *p, *t;
     int x;
@@ -123,5 +133,6 @@ int main() {
     cout<<endl;
     postorder(root);
     cout<<endl;
+    cout<<count(root)<<endl;
     return 0;
 }
