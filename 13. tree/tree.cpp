@@ -53,6 +53,16 @@ void display(struct Queue *q) {
     }
 }
 
+int sum(struct Node *root) {
+    int x, y;
+    if(root) {
+        x = sum(root->lchild);
+        y = sum(root->rchild);
+        return x + y + root->data;
+    }
+    return 0;
+}
+
 // Here count follows post order.
 int count(struct Node *root) {
     int x, y;
@@ -86,6 +96,63 @@ int height(struct Node *root) {
     } else {
         return y + 1;
     }
+}
+
+int countLeaf(struct Node *root) {
+    int x, y;
+
+    if(root) {
+        x = countLeaf(root->lchild);
+        y = countLeaf(root->rchild);
+        if(!root->lchild && !root->rchild) {
+            return x + y + 1;
+        } else {
+            return x + y;
+        }
+    }
+    return 0;
+}
+
+int nodeWithDeg2(struct Node *root) {
+    int x, y;
+    if(root) {
+        x = nodeWithDeg2(root->lchild);
+        y = nodeWithDeg2(root->rchild);
+        if(root->lchild && root->rchild) {
+            return x + y + 1;
+        } else {
+            return x + y;
+        }
+    }
+    return 0;
+}
+
+int nodeWithDeg1(struct Node *root) {
+    int x, y;
+    if(root) {
+        x = nodeWithDeg1(root->lchild);
+        y = nodeWithDeg1(root->rchild);
+        if(root->lchild != NULL ^ root->rchild != NULL) { // Bitwise XOR: TT - F, FF - F, TF - T, FT - T.
+            return x + y + 1;
+        } else {
+            return x + y;
+        }
+    }
+    return 0;
+}
+
+int nodeWithDeg1Or2(struct Node *root) {
+    int x, y;
+    if(root) {
+        x = nodeWithDeg1Or2(root->lchild);
+        y = nodeWithDeg1Or2(root->rchild);
+        if(root->lchild || root->rchild) {
+            return x + y + 1;
+        } else {
+            return x + y;
+        }
+    }
+    return 0;
 }
 
 void create() {
@@ -158,7 +225,12 @@ int main() {
     cout<<endl;
     postorder(root);
     cout<<endl;
-    cout<<count(root)<<endl;
-    cout<<height(root)<<endl;
+    cout<<"Sum: "<<sum(root)<<endl;
+    cout<<"Count: "<<count(root)<<endl;
+    cout<<"Height: "<<height(root)<<endl;
+    cout<<"Count Leaf: "<<countLeaf(root)<<endl;
+    cout<<"Deg 2 Nodes: "<<nodeWithDeg2(root)<<endl;
+    cout<<"Deg 1 Nodes: "<<nodeWithDeg1(root)<<endl;
+    cout<<"Deg 1 or 2 Nodes: "<<nodeWithDeg1Or2(root)<<endl;
     return 0;
 }
