@@ -53,6 +53,7 @@ void display(struct Queue *q) {
     }
 }
 
+// Here count follows post order.
 int count(struct Node *root) {
     int x, y;
     if(root) {
@@ -61,6 +62,30 @@ int count(struct Node *root) {
         return x + y + 1;
     }
     return 0;
+}
+
+// Single line count.
+// int count(struct Node *root) {
+//     if(root) {
+//         return count(root->lchild) + count(root->rchild) + 1;
+//     }
+//     return 0;
+// }
+
+// Height of a tree.
+int height(struct Node *root) {
+    int x = 0, y = 0;
+    if(root == NULL) {
+        return 0;
+    }
+
+    x = height(root->lchild);
+    y = height(root->rchild);
+    if(x > y) {
+        return x + 1;
+    } else {
+        return y + 1;
+    }
 }
 
 void create() {
@@ -134,5 +159,6 @@ int main() {
     postorder(root);
     cout<<endl;
     cout<<count(root)<<endl;
+    cout<<height(root)<<endl;
     return 0;
 }
