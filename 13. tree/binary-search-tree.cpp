@@ -46,7 +46,7 @@ void inorder(struct TreeNode *root) {
         cout<<root->data<<" ";
         inorder(root->rchild);
     }
-    cout<<endl;
+    cout<<" ";
 }
 
 struct TreeNode* search(int key) {
@@ -64,6 +64,69 @@ struct TreeNode* search(int key) {
     return NULL;
 }
 
+// Height of a tree.
+int height(struct TreeNode *root) {
+    int x = 0, y = 0;
+    if(root == NULL) {
+        return 0;
+    }
+
+    x = height(root->lchild);
+    y = height(root->rchild);
+    if(x > y) {
+        return x + 1;
+    } else {
+        return y + 1;
+    }
+}
+
+struct TreeNode *inPre(struct TreeNode *p) {
+    while(p && p->rchild != NULL) {
+        p = p->rchild;
+    }
+    return p;
+}
+
+struct TreeNode *inSucc(struct TreeNode *p) {
+    while(p && p->lchild != NULL) {
+        p = p->lchild;
+    }
+    return p;
+}
+
+struct TreeNode * Delete(struct TreeNode *p, int key) {
+
+    struct TreeNode *q;
+
+    if(p == NULL) {
+        return NULL;
+    }
+    if(p->lchild == NULL && p->rchild == NULL) {
+        if(p == root) {
+            root = NULL;
+        }
+        free(p);
+        return NULL;
+    }
+
+    if(key < p->data) {
+        p->lchild = Delete(p->lchild, key);
+    } else if(key > p->data) {
+        p->rchild = Delete(p->rchild, key);
+    } else {
+        if(height(p->lchild) > height(p->rchild)) {
+            q = inPre(p->lchild);// Inorder precedor.
+            p->data = q->data;
+            p->lchild = Delete(p->lchild, q->data);
+        } else {
+            q = inSucc(p->rchild);// Inorder successor.
+            p->data = q->data;
+            p->rchild = Delete(p->rchild, q->data);
+        }
+    }
+    return p;
+}
+
 int main() {
     int n;
     cout<<"Enter no. of nodes in a tree: ";
@@ -76,12 +139,14 @@ int main() {
         insert(val);
     }
 
+    Delete(root, 10);
+
     inorder(root);
 
     struct TreeNode *found = search(6);
     if(found) {
-        cout<<"Element found: "<<found->data;
+        cout<<"\nElement found: "<<found->data;
     } else {
-        cout<<"Element Not found.";
+        cout<<"\nElement Not found.";
     }
 }
